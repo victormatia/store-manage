@@ -27,4 +27,11 @@ describe('Aplica casos de testes a productsService', function () {
 
     expect(result.message).to.be.deep.equal('Product not found');
   });
+
+  it('Verificado se é possível adicionar um novo produto', async function () {
+    sinon.stub(productsModel, 'postProduct').resolves(13);
+    const result = await productsService.postProduct('new product');
+
+    expect(result).to.be.equal(13);
+  });
 });
