@@ -14,8 +14,14 @@ const notFoundResponse = {
   message: 'Product not found',
 };
 
+const newProduct = {
+  id: 999,
+  name: 'Arco de combate com felchas multifuncionais',
+};
+
 module.exports = {
   allProductsResponse,
   productTwoResponse,
   notFoundResponse,
+  newProduct,
 }

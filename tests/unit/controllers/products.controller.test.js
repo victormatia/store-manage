@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const productsController = require('../../../src/controllers/products.controller');
 const productsService = require('../../../src/services/products.service');
 const sinonChai = require('sinon-chai')
-const { allProductsResponse, productTwoResponse, notFoundResponse } = require('./mock/mockProducts');
+const { allProductsResponse, productTwoResponse, notFoundResponse, newProduct } = require('./mock/mockProducts');
 
 const { expect } = chai
 
@@ -55,5 +55,21 @@ describe('Aplica casos de testes a productsController', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(notFoundResponse);
+  });
+
+  it('Verificado se é possível cadastrar um novo produto', async function () {
+    const res = {};
+    const req = { body: { "name": "Arco de combate com felchas multifuncionais" } };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon.stub(productsService, 'postProduct').resolves(999);
+    sinon.stub(productsService, 'findProductById').resolves({ message: newProduct});
+
+    await productsController.postProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(newProduct);
   });
 });
