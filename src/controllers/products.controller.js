@@ -15,7 +15,16 @@ const findProductById = async (req, res) => {
   res.status(200).json(message);
 };
 
+const postProduct = async (req, res) => { 
+  const { name } = req.body;
+  const insertId = await productsService.postProduct(name);
+  const { message } = await productsService.findProductById(insertId);
+
+  res.status(201).json(message);
+};
+
 module.exports = {
   findAllProducts,
   findProductById,
+  postProduct,
 };
