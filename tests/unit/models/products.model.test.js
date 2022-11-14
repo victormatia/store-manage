@@ -26,4 +26,10 @@ describe('Aplica casos de testes a productsModel', function () {
     const result = await productsModel.findProductById(13);
     expect(result).to.be.equal(undefined);
   });
+
+  it('Verificado se é possível adicionar um novo produto ao banco de dados', async function () { 
+    sinon.stub(connection, 'execute').resolves([{ insertId: 13 }]);
+    const result = await productsModel.postProduct('new product');
+    expect(result).to.be.equal(13)
+  });
 });
