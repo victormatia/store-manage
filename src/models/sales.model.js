@@ -13,8 +13,8 @@ const postSale = async (sale) => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales () VALUE ()',
   );
-  await sale.forEach(async ({ productId, quantity }) =>
-    postSaleProduct({ insertId, productId, quantity }));
+  await Promise.all(sale.map(async ({ productId, quantity }) =>
+    postSaleProduct({ insertId, productId, quantity })));
 
   return insertId;
 };
