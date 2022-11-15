@@ -17,7 +17,7 @@ const verifyKeys = (req, res, next) => {
 const validateProduct = async (req, res, next) => {
   const { body } = req;
 
-  // refatorar 
+  // refatorar - mover para a camada service
   const results = await Promise
     .all(body.map(async ({ productId }) => productsModel.findProductById(productId)));
   
