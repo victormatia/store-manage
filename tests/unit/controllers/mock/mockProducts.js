@@ -10,6 +10,10 @@ const productTwoResponse = {
   message: { id: 2, name: 'Traje de encolhimento' },
 };
 
+const productUpdated = {
+  message: { id: 2, name: 'Traje de crescimento' },
+};
+
 const notFoundResponse = {
   message: 'Product not found',
 };
@@ -24,4 +28,5 @@ module.exports = {
   productTwoResponse,
   notFoundResponse,
   newProduct,
+  productUpdated,
 }
