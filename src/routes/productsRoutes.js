@@ -15,4 +15,11 @@ route.post(
   productsController.postProduct,
 );
 
+route.put(
+  '/:id',
+  productMiddlewares.verifyKeys,
+  productMiddlewares.verifyName,
+  productsController.updateProduct,
+);
+
 module.exports = route;
