@@ -1,5 +1,3 @@
-const productsModel = require('../models/products.model');
-
 const verifyKeys = (req, res, next) => { 
   const { body } = req;
 
@@ -11,19 +9,6 @@ const verifyKeys = (req, res, next) => {
     return res.status(400).json({ message: '"quantity" is required' });
   }
 
-  next();
-};
-
-const validateProduct = async (req, res, next) => {
-  const { body } = req;
-
-  // refatorar - mover para a camada service
-  const results = await Promise
-    .all(body.map(async ({ productId }) => productsModel.findProductById(productId)));
-  
-  const isResultValide = results.some((result) => !result);
-
-  if (isResultValide) return res.status(404).json({ message: 'Product not found' });
   next();
 };
 
@@ -39,6 +24,5 @@ const validateQuantity = (req, res, next) => {
 
 module.exports = {
   verifyKeys,
-  validateProduct,
   validateQuantity,
 };
