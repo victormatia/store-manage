@@ -4,6 +4,10 @@ const { verifyKeys, validateQuantity } = require('../middlewares/sales.middlewar
 
 const route = express.Router();
 
+route.get('/', salesRoutes.findAllSales);
+
+route.get('/:id', salesRoutes.findSalesById);
+
 route.post(
   '/',
   verifyKeys,

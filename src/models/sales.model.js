@@ -1,5 +1,39 @@
 const connection = require('./db/connection');
 
+const findAllSales = async () => {
+  const [result] = await connection.execute(
+    `SELECT
+      sp.sale_id, s.date,
+      sp.product_id,
+      sp.quantity
+    FROM
+      StoreManager.sales_products AS sp
+    INNER JOIN
+      StoreManager.sales AS s
+    ON sp.sale_id = s.id`,
+  );
+
+  return result;
+};
+
+const findSalesById = async (id) => {
+  const [result] = await connection.execute(
+    `SELECT
+      sp.sale_id, s.date,
+      sp.product_id,
+      sp.quantity
+    FROM
+      StoreManager.sales_products AS sp
+    INNER JOIN
+      StoreManager.sales AS s
+    ON sp.sale_id = s.id
+    WHERE sale_id = ?`,
+    [id],
+  );
+
+  return result;
+};
+
 const postSaleProduct = async ({ insertId, productId, quantity }) => {
   const result = await connection.execute(
     'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUE (?, ?, ?)',
@@ -20,5 +54,7 @@ const postSale = async (sale) => {
 };
 
 module.exports = {
+  findAllSales,
+  findSalesById,
   postSale,
 };
