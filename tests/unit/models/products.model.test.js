@@ -21,7 +21,7 @@ describe('Aplica casos de testes a productsModel', function () {
     expect(result).to.be.deep.equal(productsOne[0][0]);
   });
 
-  it('Verificado se retorna "product not found", quando i id não é encontrado', async function () {
+  it('Verificado se retorna "product not found", quando o id não é encontrado', async function () {
     sinon.stub(connection, 'execute').resolves([[]]);
     const result = await productsModel.findProductById(13);
     expect(result).to.be.equal(undefined);
@@ -31,5 +31,17 @@ describe('Aplica casos de testes a productsModel', function () {
     sinon.stub(connection, 'execute').resolves([{ insertId: 13 }]);
     const result = await productsModel.postProduct('new product');
     expect(result).to.be.equal(13)
+  });
+
+  it('Verificado se é possível atualizar o nome de um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([{ changedRows: 1 }])
+    const result = await productsModel.updateProduct(20);
+    expect(result).to.be.equal(1);
+  });
+
+  it('Verificado se é possível apagar um produto', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }])
+    const result = await productsModel.deleteProduct(20);
+    expect(result).to.be.equal(1);
   });
 });
