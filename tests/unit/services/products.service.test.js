@@ -34,4 +34,16 @@ describe('Aplica casos de testes a productsService', function () {
 
     expect(result).to.be.equal(13);
   });
+
+  it('Verificado se é possível atualizar o nome de um produto', async function () {
+    sinon.stub(productsModel, 'updateProduct').resolves(1)
+    const result = await productsService.updateProduct(20);
+    expect(result.message).to.be.equal(1);
+  });
+
+  it('Verificado se é possível apagar um produto', async function () {
+    sinon.stub(productsModel, 'deleteProduct').resolves(1)
+    const result = await productsService.deleteProduct(20);
+    expect(result.message).to.be.equal(1);
+  });
 });
