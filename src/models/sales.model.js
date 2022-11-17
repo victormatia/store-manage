@@ -13,6 +13,8 @@ const findAllSales = async () => {
     ON sp.sale_id = s.id`,
   );
 
+  console.log(result);
+
   return result;
 };
 
@@ -53,8 +55,21 @@ const postSale = async (sale) => {
   return insertId;
 };
 
+const deleteSale = async (id) => {
+  await connection.execute(
+    'DELETE FROM StoreManager.sales WHERE id = ?',
+    [id],
+  );
+
+  await connection.execute(
+    'DELETE FROM StoreManager.sales_products WHERE sale_id = ?',
+    [id],
+  );
+};
+
 module.exports = {
   findAllSales,
   findSalesById,
   postSale,
+  deleteSale,
 };
