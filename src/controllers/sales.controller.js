@@ -31,9 +31,9 @@ const postSale = async (req, res) => {
 const deleteSale = async (req, res) => {
   const { id } = req.params;
 
-  const result = await salesService.deleteSale(id);
+  const { message } = await salesService.deleteSale(id);
 
-  if (result) return res.status(404).json(result);
+  if (typeof message === 'string') return res.status(404).json({ message });
   
   res.status(204).end();
 };

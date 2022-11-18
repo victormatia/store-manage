@@ -45,7 +45,9 @@ const deleteSale = async (id) => {
 
   if (!result.length) return { message: 'Sale not found' };
 
-  await salesModel.deleteSale(id);
+  const affectedRows = await salesModel.deleteSale(id);
+
+  return { message: affectedRows };
 };
 
 module.exports = {
