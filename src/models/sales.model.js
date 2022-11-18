@@ -13,8 +13,6 @@ const findAllSales = async () => {
     ON sp.sale_id = s.id`,
   );
 
-  console.log(result);
-
   return result;
 };
 
@@ -56,7 +54,7 @@ const postSale = async (sale) => {
 };
 
 const deleteSale = async (id) => {
-  await connection.execute(
+  const [{ affectedRows }] = await connection.execute(
     'DELETE FROM StoreManager.sales WHERE id = ?',
     [id],
   );
@@ -65,6 +63,32 @@ const deleteSale = async (id) => {
     'DELETE FROM StoreManager.sales_products WHERE sale_id = ?',
     [id],
   );
+
+  return affectedRows;
+};
+
+const updateDB = async (saleId, productId, quantity) => {
+  const [{ changedRows }] = await connection.execute(
+    `UPDATE
+        StoreManager.sales_products
+      SET 
+        quantity = ?
+      WHERE
+        sale_id = ?
+      AND
+        product_id = ?`,
+    [quantity, saleId, productId],
+  );
+
+  return changedRows;
+};
+
+const updateSale = async ({ saleId, saleUpdated }) => {
+  const result = await Promise.all(saleUpdated.map(async ({ productId, quantity }) => (
+    updateDB(saleId, productId, quantity)
+  )));
+
+  return result.reduce((acc, curr) => acc + curr, 0);
 };
 
 module.exports = {
@@ -72,4 +96,5 @@ module.exports = {
   findSalesById,
   postSale,
   deleteSale,
+  updateSale,
 };
