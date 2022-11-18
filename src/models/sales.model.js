@@ -83,7 +83,8 @@ const updateDB = async (saleId, productId, quantity) => {
   return changedRows;
 };
 
-const updateSale = async ({ saleId, saleUpdated }) => {
+const updateSale = async (saleId, saleUpdated) => {
+  console.log(saleId, saleUpdated);
   const result = await Promise.all(saleUpdated.map(async ({ productId, quantity }) => (
     updateDB(saleId, productId, quantity)
   )));
