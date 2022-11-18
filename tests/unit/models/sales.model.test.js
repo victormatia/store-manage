@@ -48,4 +48,23 @@ describe('Aplica casos de teste a salesModel', function () {
 
     expect(result).to.be.equal(2);
   });
+
+  it('Verificado se é possível atualizar uma venda', async function () {
+    const saleUpdated = [
+      {
+        "productId": 1,
+        "quantity": 1
+      },
+      {
+        "productId": 2,
+        "quantity": 5
+      }
+    ];
+
+    sinon.stub(connection, 'execute').resolves([{ changedRows: 1 }]);
+
+    const result = await salesModel.updateSale({ saleId: 1, saleUpdated });
+
+    expect(result).to.be.deep.equal(2);
+  });
 });
