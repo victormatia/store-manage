@@ -4,6 +4,7 @@ const salesService = require('../../../src/services/sales.service');
 const salesModel = require('../../../src/models/sales.model');
 
 const { allSalesResponse, allSales, sale, salesResponse } = require('./mock/mockSales');
+const connection = require('../../../src/models/db/connection');
 
 describe('Aplica casos de teste a salesService', function () { 
   afterEach(sinon.restore);
@@ -64,7 +65,8 @@ describe('Aplica casos de teste a salesService', function () {
       }
     ];
 
-    // sinon.stub(salesModel, 'updateSale').resolves(2);
+    sinon.stub(salesModel, 'updateDB').resolves([{ changedRows: 1 }]);
+    sinon.stub(salesModel, 'updateSale').resolves(2);
 
     const result = await salesService.updateSale(saleId, saleUpdated);
 
