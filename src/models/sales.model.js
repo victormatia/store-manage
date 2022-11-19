@@ -84,7 +84,6 @@ const updateDB = async (saleId, productId, quantity) => {
 };
 
 const updateSale = async (saleId, saleUpdated) => {
-  console.log(saleId, saleUpdated);
   const result = await Promise.all(saleUpdated.map(async ({ productId, quantity }) => (
     updateDB(saleId, productId, quantity)
   )));
@@ -98,4 +97,5 @@ module.exports = {
   postSale,
   deleteSale,
   updateSale,
+  updateDB,
 };
