@@ -84,9 +84,11 @@ const updateDB = async (saleId, productId, quantity) => {
 };
 
 const updateSale = async (saleId, saleUpdated) => {
+  // saleUpdated = [{productId, quantity}, {productId, quantity}]
+
   const result = await Promise.all(saleUpdated.map(async ({ productId, quantity }) => (
     updateDB(saleId, productId, quantity)
-  )));
+  ))); // retorno = [1, 1]
 
   return result.reduce((acc, curr) => acc + curr, 0);
 };

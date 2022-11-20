@@ -57,7 +57,7 @@ const updateSale = async (id, saleUpdated) => {
 
   const result = await salesModel.updateSale(id, saleUpdated);
 
-  return { message: result };
+  return { message: result }; // result é uma soma
 };
 
 module.exports = {
