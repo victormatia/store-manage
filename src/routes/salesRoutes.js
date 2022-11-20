@@ -17,4 +17,11 @@ route.post(
   salesController.postSale,
 );
 
+route.put(
+  '/:id',
+  verifyKeys,
+  validateQuantity,
+  salesController.updateSale,
+);
+
 module.exports = route;
