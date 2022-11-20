@@ -51,9 +51,15 @@ const deleteSale = async (id) => {
 };
 
 const updateSale = async (id, saleUpdated) => { 
+  const areProductsValides = await validations.validateProduct(saleUpdated);
+
+  if (!areProductsValides) {
+    return { message: 'Product not found' };
+  }
+
   const sale = await salesModel.findSalesById(id);
 
-  if (!sale) return { message: 'Sale not found' };
+  if (!sale.length) return { message: 'Sale not found' };
 
   const result = await salesModel.updateSale(id, saleUpdated);
 
