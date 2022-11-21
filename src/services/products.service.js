@@ -1,5 +1,11 @@
 const productsModel = require('../models/products.model');
 
+const findProductByName = async (name) => { 
+  const result = await productsModel.findProductByName(name);
+
+  return { message: result };
+};
+
 const findAllProducts = async () => {
   const result = await productsModel.findAllProducts();
 
@@ -33,6 +39,7 @@ const deleteProduct = async (id) => {
 };
 
 module.exports = {
+  findProductByName,
   findAllProducts,
   findProductById,
   postProduct,

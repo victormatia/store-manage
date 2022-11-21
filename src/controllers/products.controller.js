@@ -1,5 +1,13 @@
 const productsService = require('../services/products.service');
 
+const findProductByName = async (req, res) => { 
+  const { q } = req.query;
+
+  const { message } = await productsService.findProductByName(q);
+
+  res.status(200).json(message);
+};
+
 const findAllProducts = async (_req, res) => {
   const { message } = await productsService.findAllProducts();
 
@@ -51,6 +59,7 @@ const deleteProduct = async (req, res) => {
 };
 
 module.exports = {
+  findProductByName,
   findAllProducts,
   findProductById,
   postProduct,

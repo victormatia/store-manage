@@ -4,6 +4,8 @@ const productMiddlewares = require('../middlewares/products.middlewares');
 
 const route = express.Router();
 
+route.get('/search', productsController.findProductByName);
+
 route.get('/', productsController.findAllProducts);
 
 route.get('/:id', productsController.findProductById);
